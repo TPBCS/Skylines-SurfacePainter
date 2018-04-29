@@ -32,7 +32,7 @@ namespace SurfacePainter
 
         public IEnumerable<ToolBase> SetupTools(LoadMode mode)
         {
-            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
+            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame && mode != LoadMode.NewGameFromScenario && mode != LoadMode.LoadTheme && mode != LoadMode.NewTheme)
             {
                 return new ToolBase[] { };
             }
@@ -47,7 +47,7 @@ namespace SurfacePainter
 
         public void CreateToolbars(LoadMode mode)
         {
-            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
+            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame && mode != LoadMode.NewGameFromScenario && mode != LoadMode.LoadTheme && mode != LoadMode.NewTheme)
             {
                 return;
             }
@@ -68,9 +68,16 @@ mainToolbar.m_DefaultInfoTooltipAtlas);
             ((UIButton)Object.FindObjectOfType<SurfacePanel>().Find("Field")).atlas = Util.CreateAtlasFromResources(new List<string> { "SurfaceField" });
             ((UIButton)Object.FindObjectOfType<SurfacePanel>().Find("Clip")).atlas = Util.CreateAtlasFromResources(new List<string> { "SurfaceClip" });
             ((UIButton)Object.FindObjectOfType<SurfacePanel>().Find("Ruined")).atlas = Util.CreateAtlasFromResources(new List<string> { "SurfaceRuined" });
-
-            ((UIButton)UIView.FindObjectOfType<GameMainToolbar>().Find("Surface")).atlas =
-                Util.CreateAtlasFromResources(new List<string> { "ToolbarIconSurface", "ToolbarIconBase" });
+            if (mode != LoadMode.NewTheme && mode != LoadMode.LoadTheme)
+            {
+                ((UIButton)UIView.FindObjectOfType<GameMainToolbar>().Find("Surface")).atlas =
+                    Util.CreateAtlasFromResources(new List<string> { "ToolbarIconSurface", "ToolbarIconBase" });
+            }
+            else
+            {
+                ((UIButton)UIView.FindObjectOfType<ThemeEditorMainToolbar>().Find("Surface")).atlas =
+                    Util.CreateAtlasFromResources(new List<string> { "ToolbarIconSurface", "ToolbarIconBase" });
+            }
         }
 
         public bool SupportsSingle(ToolBase tool)

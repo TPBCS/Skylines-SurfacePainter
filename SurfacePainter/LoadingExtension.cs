@@ -14,7 +14,7 @@ namespace SurfacePainter
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
-            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
+            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame && mode != LoadMode.NewGameFromScenario && mode != LoadMode.NewTheme && mode != LoadMode.LoadTheme)
             {
                 EltPlugin.RevertDetours();
             }
@@ -22,7 +22,6 @@ namespace SurfacePainter
             {
                 SurfaceManager.UpdateWholeMap();
             }
-
         }
     }
 }
